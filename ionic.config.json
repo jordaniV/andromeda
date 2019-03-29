@@ -1,0 +1,7 @@
+{
+  "name": "andromeda",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
