@@ -11,10 +11,15 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 
+import { ConexaoBluetoothPageModule } from './pages/conexao-bluetooth/conexao-bluetooth.module';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule,
+            IonicModule.forRoot(),
+            AppRoutingModule,
+            ConexaoBluetoothPageModule],
   providers: [
     StatusBar,
     SplashScreen,

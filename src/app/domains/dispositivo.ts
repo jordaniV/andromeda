@@ -1,8 +1,8 @@
 export interface Dispositivo {
 
-    classe: number;
-    id: string;
-    mac: string;
-    nome: string;
+    'class': number;
+    'id': string;
+    'address': string;
+    'name': string;
 
 }

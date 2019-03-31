@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="cinzaescuro">
+    <ion-title>Conexão via Bluetooth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="cinza" padding>
+
+  <ion-card color="cinzaescuro">
+    <ion-card-header>Selecione o dispositivo bluetooth</ion-card-header>
+    <ion-card-content>
+
+      <ion-list class="cinza" [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
+        <ion-radio-group>
+          <ion-item color="cinzaescuro" *ngFor="let device of pairedList;let j=index">
+            <ion-label>{{ device.name }}</ion-label>
+            <ion-radio value="{{j}}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+
+      <ion-button color="cinzaclaro" click="listPairedDevices()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="listToggle" color="cinzaclaro" (click)="selectDevice()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-item color="cinza">
+    <ion-label position="stacked">Comando</ion-label>
+    <ion-input type="text" name="datasend" [(ngModel)]="dataSend"></ion-input>
+  </ion-item>
+
+  <br>
+
+  <ion-button expand="full" (click)="sendData()">
+    <ion-icon name="send"></ion-icon>&nbsp;Enviando dados via bluetooth
+  </ion-button>
+
+</ion-content>

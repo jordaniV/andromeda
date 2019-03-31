@@ -4,7 +4,7 @@
       Andrômeda
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="connectBluetooth()"> <!-- [routerLink]="['/conexao-bluetooth']" routerDirection="forward" -->
         <ion-icon slot="icon-only" name="bluetooth"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,39 +13,6 @@
 
 <ion-content color="cinza" padding>
 
-  <ion-button expand="full" click="listPairedDevices()">
-    <ion-icon name="refresh"></ion-icon>&nbsp;Atualizar Dispos.
-  </ion-button>
-
-
-  <!--<ion-list color="cinza" radio-group [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
-    <ion-item color="cinza" *ngFor="let device of dispositivos;let j=index">
-      <ion-label>{{ device.mac }}</ion-label>
-      <ion-radio value="{{j}}"></ion-radio>
-    </ion-item>
-  </ion-list>-->
-  <ion-list class="cinza" [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
-    <ion-radio-group>
-      <ion-item color="cinza" *ngFor="let device of pairedList;let j=index">
-        <ion-label>{{ device.name }}</ion-label>
-        <ion-radio value="{{j}}"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
-
-  <ion-button expand="full" *ngIf="listToggle" (click)="selectDevice()">
-    <ion-icon name="bluetooth"></ion-icon>&nbsp;Connect Bluetooth Devices
-  </ion-button>
-
-  <ion-item color="cinza">
-    <ion-label position="stacked">Comando</ion-label>
-    <ion-input type="text" name="datasend" [(ngModel)]="dataSend"></ion-input>
-  </ion-item>
-
-  <br>
-
-  <ion-button expand="full" (click)="sendData()">
-    <ion-icon name="send"></ion-icon>&nbsp;Enviando dados via bluetooth
-  </ion-button>
+  <p>Home</p>
 
 </ion-content>
