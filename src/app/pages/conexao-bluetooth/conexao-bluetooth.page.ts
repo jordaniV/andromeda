@@ -51,6 +51,7 @@ export class ConexaoBluetoothPage {
     const name = connectedDevice.name;
 
     this.connect(address);
+    this.navCtrl.navigateForward('automacao');
   }
 
   connect(address) {
