@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
+import { NavController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { Dispositivo } from 'src/app/domains/dispositivo';
 
@@ -14,12 +14,17 @@ export class ConexaoBluetoothPage {
   listToggle = false;
   pairedDeviceID = 0;
   dataSend = '';
+  loaded;
+  address;
+  name: string;
+  info;
 
 
   constructor(public navCtrl: NavController,
     private alertCtrl: AlertController,
     private bluetoothSerial: BluetoothSerial,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) {
     this.checkBluetoothEnabled();
   }
 
@@ -46,20 +51,24 @@ export class ConexaoBluetoothPage {
     if (!connectedDevice.address) {
       this.showError('Selecione o dispositivo pareado para conexão.');
       return;
+    } else {
+      this.address = connectedDevice.address;
+      this.name = connectedDevice.name;
+      this.info = `${this.name} - ${this.address}`; // JUNTO AS DUAS INFORMAÇÕES PARA ENVIAR PELO NAV CONTROLLER
+      this.connect(this.address);
     }
-    const address = connectedDevice.address;
-    const name = connectedDevice.name;
-
-    this.connect(address);
-    this.navCtrl.navigateForward('automacao');
   }
 
   connect(address) {
+    this.showLoading();
     // Attempt to connect device with specified address, call app.deviceConnected if success
     this.bluetoothSerial.connect(address).subscribe(success => {
-      this.deviceConnected();
+      this.loaded.dismiss();
       this.showToast('Conexão executada com sucesso!');
+      this.navCtrl.navigateForward(`/automacao/${this.info}`);
+      this.deviceConnected();
     }, error => {
+      this.loaded.dismiss();
       this.showError('Erro de conexão com o dispositivo.');
     });
   }
@@ -68,20 +77,19 @@ export class ConexaoBluetoothPage {
     // Subscribe to data receiving as soon as the delimiter is read
     this.bluetoothSerial.subscribe('\n').subscribe(success => {
       this.handleData(success);
-      this.showToast('Conexão executada com sucesso!');
     }, error => {
       this.showError(error);
     });
+  }
+
+  handleData(data) {
+    this.showToast(data);
   }
 
   deviceDisconnected() {
     // Unsubscribe from data receiving
     this.bluetoothSerial.disconnect();
     this.showToast('Dispositivo desconectado.');
-  }
-
-  handleData(data) {
-    this.showToast(data);
   }
 
   sendData() {
@@ -110,7 +118,13 @@ export class ConexaoBluetoothPage {
       duration: 1000
     });
     toast.present();
+  }
 
+  async showLoading() {
+    this.loaded = await this.loadingCtrl.create({
+      message: 'Conectando...'
+    });
+    this.loaded.present();
   }
 
 }

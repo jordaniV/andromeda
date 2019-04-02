@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'conexao-bluetooth', loadChildren: './pages/conexao-bluetooth/conexao-bluetooth.module#ConexaoBluetoothPageModule' },
   { path: 'automacao', loadChildren: './pages/automacao/automacao.module#AutomacaoPageModule' },
+  { path: 'automacao/:info', loadChildren: './pages/automacao/automacao.module#AutomacaoPageModule' },
 ];
 
 @NgModule({
