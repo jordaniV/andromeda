@@ -60,8 +60,8 @@ export class ConexaoBluetoothPage {
   }
 
   connect(address) {
-    this.showLoading();
     // Attempt to connect device with specified address, call app.deviceConnected if success
+    this.showLoading('Conectando...');
     this.bluetoothSerial.connect(address).subscribe(success => {
       this.loaded.dismiss();
       this.showToast('Conexão executada com sucesso!');
@@ -69,7 +69,7 @@ export class ConexaoBluetoothPage {
       this.deviceConnected();
     }, error => {
       this.loaded.dismiss();
-      this.showError('Erro de conexão com o dispositivo.');
+      this.showError('Erro de conexão com o dispositivo ou já existe um conectado, tente novamente.');
     });
   }
 
@@ -120,9 +120,9 @@ export class ConexaoBluetoothPage {
     toast.present();
   }
 
-  async showLoading() {
+  async showLoading(message) {
     this.loaded = await this.loadingCtrl.create({
-      message: 'Conectando...'
+      message: message
     });
     this.loaded.present();
   }
