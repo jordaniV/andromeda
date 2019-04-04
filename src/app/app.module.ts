@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ConexaoBluetoothPageModule } from './pages/conexao-bluetooth/conexao-bluetooth.module';
 
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
 
-import { ConexaoBluetoothPageModule } from './pages/conexao-bluetooth/conexao-bluetooth.module';
+
+import { DatabaseService } from './services/database/database.service';
+import { SensorDAOService } from './services/sensorDAO/sensor-dao.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,9 +25,12 @@ import { ConexaoBluetoothPageModule } from './pages/conexao-bluetooth/conexao-bl
             AppRoutingModule,
             ConexaoBluetoothPageModule],
   providers: [
-    StatusBar,
-    SplashScreen,
     BluetoothSerial,
+    DatabaseService,
+    SensorDAOService,
+    SplashScreen,
+    StatusBar,
+    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
