@@ -24,12 +24,8 @@
   </ion-card>
 
   <ion-list class="cinza">
-    <ion-item color="cinza">
-      Teste 1
-      <ion-toggle slot="end" color="success"></ion-toggle>
-    </ion-item>
-    <ion-item color="cinza">
-      Teste 2
+    <ion-item *ngFor="let sensor of sensores" color="cinza">
+      {{ sensor.nome }}
       <ion-toggle slot="end" color="success"></ion-toggle>
     </ion-item>
   </ion-list>

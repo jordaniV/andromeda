@@ -11,11 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ConexaoBluetoothPageModule } from './pages/conexao-bluetooth/conexao-bluetooth.module';
 
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { SQLite } from '@ionic-native/sqlite/ngx';
-
-
-import { DatabaseService } from './services/database/database.service';
-import { SensorDAOService } from './services/sensorDAO/sensor-dao.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,11 +21,8 @@ import { SensorDAOService } from './services/sensorDAO/sensor-dao.service';
             ConexaoBluetoothPageModule],
   providers: [
     BluetoothSerial,
-    DatabaseService,
-    SensorDAOService,
     SplashScreen,
     StatusBar,
-    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

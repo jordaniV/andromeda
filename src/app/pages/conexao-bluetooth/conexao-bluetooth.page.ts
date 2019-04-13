@@ -10,8 +10,9 @@ import { Dispositivo } from 'src/app/domains/dispositivo';
 })
 export class ConexaoBluetoothPage {
 
-  pairedList: Dispositivo[];
-  listToggle = false;
+  listaPareados: Dispositivo[];
+  listaExiste = false;
+  selecionado = false;
   pairedDeviceID = 0;
   dataSend = '';
   loaded;
@@ -28,6 +29,10 @@ export class ConexaoBluetoothPage {
     this.checkBluetoothEnabled();
   }
 
+  selecionadoDispositivo() {
+    this.selecionado = true;
+  }
+
   checkBluetoothEnabled() {
     this.bluetoothSerial.isEnabled().then(success => {
       this.listPairedDevices();
@@ -37,17 +42,19 @@ export class ConexaoBluetoothPage {
   }
 
   listPairedDevices() {
+    this.selecionado = false;
     this.bluetoothSerial.list().then(success => {
-      this.pairedList = success;
-      this.listToggle = true;
+      this.listaPareados = success;
+      this.listaExiste = true;
     }, error => {
       this.showError('Por favor habilite o Buetooth.');
-      this.listToggle = false;
+      this.listaExiste = false;
+      this.selecionado = false;
     });
   }
 
   selectDevice() {
-    const connectedDevice = this.pairedList[this.pairedDeviceID];
+    const connectedDevice = this.listaPareados[this.pairedDeviceID];
     if (!connectedDevice.address) {
       this.showError('Selecione o dispositivo pareado para conexão.');
       return;
@@ -125,6 +132,10 @@ export class ConexaoBluetoothPage {
       message: message
     });
     this.loaded.present();
+
+    setTimeout(() => {
+      this.loaded.dismiss();
+    }, 10000);
   }
 
 }

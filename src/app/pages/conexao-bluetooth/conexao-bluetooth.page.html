@@ -10,9 +10,9 @@
     <ion-card-header>Selecione o dispositivo bluetooth</ion-card-header>
     <ion-card-content>
 
-      <ion-list class="cinza" [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
-        <ion-radio-group>
-          <ion-item color="cinzaescuro" *ngFor="let device of pairedList;let j=index">
+      <ion-list class="cinza" [(ngModel)]="pairedDeviceID" *ngIf="listaExiste">
+        <ion-radio-group (ionSelect)="selecionadoDispositivo()">
+          <ion-item color="cinzaescuro" *ngFor="let device of listaPareados;let j=index">
             <ion-label>{{ device.name }}</ion-label>
             <ion-radio value="{{j}}"></ion-radio>
           </ion-item>
@@ -23,7 +23,7 @@
         <ion-icon name="refresh"></ion-icon>
       </ion-button>
 
-      <ion-button *ngIf="listToggle" color="cinzaclaro" (click)="selectDevice()">
+      <ion-button *ngIf="listaExiste && selecionado" color="cinzaclaro" (click)="selectDevice()">
         <ion-icon name="checkmark"></ion-icon>
       </ion-button>
 

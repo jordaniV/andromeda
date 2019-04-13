@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { Sensor } from 'src/app/domains/sensor';
 
 @Component({
   selector: 'app-automacao',
@@ -13,6 +14,7 @@ export class AutomacaoPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private alertCtrl: AlertController,
+              private toastCtrl: ToastController,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class AutomacaoPage implements OnInit {
       inputs: [
         {
           placeholder: 'Descrição',
-          name: 'descricao',
+          name: 'nome',
           type: 'text',
         },
         {
@@ -48,9 +50,9 @@ export class AutomacaoPage implements OnInit {
         {
           text: 'Salvar',
           role: 'salvar',
-          handler: () => {
-            // executa salvar sensor
-          }
+          handler: ((data: Sensor) => {
+            // codigo inserção
+          })
         }
       ]
     });
@@ -62,5 +64,22 @@ export class AutomacaoPage implements OnInit {
   // abre a tela para conectar dispositivo bluetooth
   connectBluetooth() {
     this.navCtrl.navigateForward('conexao-bluetooth');
+  }
+
+  async showToast(msj) {
+    const toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 1000
+    });
+    toast.present();
+  }
+
+  async showError(error) {
+    const alert = await this.alertCtrl.create({
+      header: 'Erro',
+      subHeader: error,
+      buttons: ['Fechar']
+    });
+    alert.present();
   }
 }

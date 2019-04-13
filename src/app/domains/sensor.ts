@@ -4,5 +4,6 @@ export interface Sensor {
     'nome': string;
     'high': string;
     'low': string;
+    'habilitado': boolean;
 
 }
