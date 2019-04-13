@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'automacao', pathMatch: 'full' },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'conexao-bluetooth', loadChildren: './pages/conexao-bluetooth/conexao-bluetooth.module#ConexaoBluetoothPageModule' },
   { path: 'automacao', loadChildren: './pages/automacao/automacao.module#AutomacaoPageModule' },

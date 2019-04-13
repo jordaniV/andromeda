@@ -7,7 +7,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="novoSensor()">
+      <ion-button (click)="novo()">
         <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,11 +23,22 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-list class="cinza">
-    <ion-item *ngFor="let sensor of sensores" color="cinza">
-      {{ sensor.nome }}
-      <ion-toggle slot="end" color="success"></ion-toggle>
-    </ion-item>
+  <ion-list #lista class="cinza">
+    <ion-item-sliding *ngFor="let sensor of sensores" color="cinza">
+      <ion-item color="cinza">
+        {{ sensor.nome }}
+        <ion-toggle slot="end" color="success"></ion-toggle>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="cinza" (click)="update(sensor)">
+          <ion-icon slot="icon-only" name="refresh"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="cinza" (click)="delete(sensor)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
 </ion-content>
