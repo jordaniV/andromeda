@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="cinzaescuro">
-    <ion-title>Automação</ion-title>
+    <ion-title>Sensores</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="connectBluetooth()">
-        <ion-icon name="bluetooth"></ion-icon>
+      <ion-button (click)="deviceDisconnected()">
+        <ion-icon name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
@@ -35,7 +35,7 @@
           <ion-icon slot="icon-only" name="refresh"></ion-icon>
         </ion-item-option>
         <ion-item-option color="cinza" (click)="delete(sensor)">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

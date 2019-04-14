@@ -1,6 +1,6 @@
 export interface Dispositivo {
 
-    'class': number;
+    // 'class': number;
     'id': string;
     'address': string;
     'name': string;

@@ -5,5 +5,6 @@ export interface Sensor {
     'high': string;
     'low': string;
     'habilitado': boolean;
+    'dispositivoPai': string;
 
 }

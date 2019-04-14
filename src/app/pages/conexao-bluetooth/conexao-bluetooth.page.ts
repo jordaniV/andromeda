@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { Storage } from '@ionic/storage';
 import { Dispositivo } from 'src/app/domains/dispositivo';
 
 @Component({
@@ -25,7 +26,8 @@ export class ConexaoBluetoothPage {
     private alertCtrl: AlertController,
     private bluetoothSerial: BluetoothSerial,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private storage: Storage) {
     this.checkBluetoothEnabled();
   }
 

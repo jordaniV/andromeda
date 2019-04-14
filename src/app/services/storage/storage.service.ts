@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Sensor } from './../../domains/sensor';
-
-const SENSORES_KEY = 'sensores';
 
 @Injectable({
   providedIn: 'root'
@@ -12,68 +9,68 @@ export class StorageService {
   constructor(private storage: Storage) { }
 
 
-  getAll(): Promise<Sensor[]> {
+  getAll(KEY: string): Promise<any[]> {
 
-    return this.storage.get(SENSORES_KEY);
+    return this.storage.get(KEY);
 
   }
 
-  add(sensor: Sensor): Promise<any> {
+  add(array: any, KEY: string): Promise<any> {
 
     return this.storage
-      .get(SENSORES_KEY)
-      .then((sensores: Sensor[]) => {
-        if (sensores) {
-          sensores.push(sensor);
-          return this.storage.set(SENSORES_KEY, sensores);
+      .get(KEY)
+      .then((items: any[]) => {
+        if (items) {
+          items.push(array);
+          return this.storage.set(KEY, items);
         } else {
-          return this.storage.set(SENSORES_KEY, [sensor]);
+          return this.storage.set(KEY, [array]);
         }
       });
   }
 
-  update(sensor: Sensor): Promise<any> {
+  update(array: any, KEY: string): Promise<any> {
 
     return this.storage
-      .get(SENSORES_KEY)
-      .then((sensores: Sensor[]) => {
-        if (!sensores || sensores.length === 0) {
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
           return null;
         }
 
-        const novosSensores: Sensor[] = [];
+        const novosItems: any[] = [];
 
-        for (const i of sensores) {
-          if (i.id === sensor.id) {
-            novosSensores.push(sensor);
+        for (const i of items) {
+          if (i.id === array.id) {
+            novosItems.push(array);
           } else {
-            novosSensores.push(i);
+            novosItems.push(i);
           }
         }
 
-        return this.storage.set(SENSORES_KEY, novosSensores);
+        return this.storage.set(KEY, novosItems);
       });
 
   }
 
-  delete(id: number): Promise<Sensor> {
+  delete(id: number, KEY: string): Promise<any> {
 
     return this.storage
-      .get(SENSORES_KEY)
-      .then((sensores: Sensor[]) => {
-        if (!sensores || sensores.length === 0) {
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
           return null;
         }
 
-        const toKeep: Sensor[] = [];
+        const toKeep: any[] = [];
 
-        for (const i of sensores) {
+        for (const i of items) {
           if (i.id !== id) {
             toKeep.push(i);
           }
         }
 
-        return this.storage.set(SENSORES_KEY, toKeep);
+        return this.storage.set(KEY, toKeep);
       });
   }
 }

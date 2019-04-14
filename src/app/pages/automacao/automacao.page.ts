@@ -1,3 +1,4 @@
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, AlertController, ToastController, IonList } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +21,8 @@ export class AutomacaoPage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private activatedRoute: ActivatedRoute,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private bluetoothSerial: BluetoothSerial) {
   }
 
   ngOnInit() {
@@ -28,9 +30,13 @@ export class AutomacaoPage implements OnInit {
     this.loadSensores();
   }
 
+  ionViewWillEnter() {
+    // this.loadSensores();
+  }
+
   loadSensores() {
     this.storageService
-      .getAll()
+      .getAll('sensores')
       .then(sensores => {
         this.sensores = sensores;
       });
@@ -67,11 +73,12 @@ export class AutomacaoPage implements OnInit {
           role: 'salvar',
           handler: ((data: Sensor) => {
 
-            data.habilitado = true;
+            data.habilitado = false;
             data.id = Date.now();
+            data.dispositivoPai = this.info;
 
             this.storageService
-              .add(data)
+              .add(data, 'sensores')
               .then(sensor => {
                 data = <Sensor>{};
                 this.showToast('Sensor adicionado com sucesso!');
@@ -122,9 +129,8 @@ export class AutomacaoPage implements OnInit {
           role: 'atualizar',
           handler: ((data: Sensor) => {
             data.id = sensor.id;
-            console.log(data);
             this.storageService
-              .update(data)
+              .update(data, 'sensores')
               .then(() => {
                 this.showToast('Sensor Atualizado!');
                 this.lista.closeSlidingItems();
@@ -156,7 +162,7 @@ export class AutomacaoPage implements OnInit {
           text: 'Sim',
           role: 'sim',
           handler: () => {
-              this.storageService.delete(sensor.id).then(() => {
+            this.storageService.delete(sensor.id, 'sensores').then(() => {
               this.showToast('Sensor removido');
               this.lista.closeSlidingItems(); // Fix or sliding is stuck afterwards
               this.loadSensores(); // Or splice it from the array directly
@@ -173,6 +179,34 @@ export class AutomacaoPage implements OnInit {
   // abre a tela para conectar dispositivo bluetooth
   connectBluetooth() {
     this.navCtrl.navigateForward('conexao-bluetooth');
+  }
+
+  async deviceDisconnected() {
+
+    const info = await this.alertCtrl.create({
+      header: 'Aviso',
+      subHeader: 'Deseja desconectar o dispositivo?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'nao',
+          handler: () => { return; }
+        },
+        {
+          text: 'Sim',
+          role: 'sim',
+          handler: () => {
+            // Unsubscribe from data receiving
+            this.bluetoothSerial.disconnect();
+            this.showToast('Dispositivo desconectado.');
+            this.navCtrl.navigateRoot('conexao-bluetooth');
+          }
+        }
+      ]
+    });
+
+    info.present();
+
   }
 
   async showToast(msj) {
