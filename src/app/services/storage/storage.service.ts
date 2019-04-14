@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Sensor } from 'src/app/domains/sensor';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,38 @@ export class StorageService {
 
   }
 
+  updateHabilitado(array: any, KEY: string) {
+
+    let h = false;
+
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return null;
+        }
+
+        const itemAtualizado: any[] = [];
+
+        for (const i of items) {
+          if (i.id === array.id) {
+            if (i.habilitado) {
+              h = false;
+            } else {
+              h = true;
+            }
+            array.habilitado = h;
+            itemAtualizado.push(array);
+          } else {
+            itemAtualizado.push(i);
+          }
+        }
+
+        return this.storage.set(KEY, itemAtualizado);
+      });
+
+  }
+
   delete(id: number, KEY: string): Promise<any> {
 
     return this.storage
@@ -73,4 +106,5 @@ export class StorageService {
         return this.storage.set(KEY, toKeep);
       });
   }
+
 }

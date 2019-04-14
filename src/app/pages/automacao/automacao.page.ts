@@ -25,6 +25,7 @@ export class AutomacaoPage implements OnInit {
     private bluetoothSerial: BluetoothSerial) {
   }
 
+
   ngOnInit() {
     this.info = this.activatedRoute.snapshot.paramMap.get('info');
     this.loadSensores();
@@ -145,6 +146,15 @@ export class AutomacaoPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  updateHabilitado(sensor: Sensor) {
+
+    this.storageService
+        .updateHabilitado(sensor, 'sensores')
+        .then(() => console.log('Estado do sensor alterado com sucesso.'))
+        .catch((error) => console.error(error));
+
   }
 
   async delete(sensor: Sensor) {

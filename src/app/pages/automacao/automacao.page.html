@@ -27,7 +27,7 @@
     <ion-item-sliding *ngFor="let sensor of sensores" color="cinza">
       <ion-item color="cinza">
         {{ sensor.nome }}
-        <ion-toggle slot="end" color="success"></ion-toggle>
+        <ion-toggle (ionChange)="updateHabilitado(sensor)" slot="end" color="success"></ion-toggle>
       </ion-item>
 
       <ion-item-options side="end">
