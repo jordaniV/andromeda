@@ -28,19 +28,21 @@ export class AutomacaoPage implements OnInit {
 
   ngOnInit() {
     this.info = this.activatedRoute.snapshot.paramMap.get('info');
-    this.loadSensores();
   }
 
   ionViewWillEnter() {
-    // this.loadSensores();
+    this.loadSensores();
   }
 
   loadSensores() {
+
     this.storageService
-      .getAll('sensores')
-      .then(sensores => {
-        this.sensores = sensores;
-      });
+        .getAllByDevice('sensores', this.info)
+        .then((result: Sensor[]) => {
+          this.sensores = result;
+        })
+        .catch((error) => { this.showError(error); });
+
   }
 
   async novo() {
@@ -152,7 +154,13 @@ export class AutomacaoPage implements OnInit {
 
     this.storageService
         .updateHabilitado(sensor, 'sensores')
-        .then(() => console.log('Estado do sensor alterado com sucesso.'))
+        .then(() => {
+          if (sensor.habilitado) {
+            this.showToast('Sensor ativado!');
+          } else {
+            this.showToast('Sensor desativado!');
+          }
+        })
         .catch((error) => console.error(error));
 
   }

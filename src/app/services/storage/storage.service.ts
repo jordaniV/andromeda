@@ -16,6 +16,28 @@ export class StorageService {
 
   }
 
+  getAllByDevice(KEY: string, info: string) {
+
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return null;
+        }
+
+        const sensores: Sensor[] = [];
+
+        for (const i of items) {
+          if (i.dispositivoPai === info) {
+            sensores.push(i);
+          } else {}
+        }
+
+        return sensores;
+      });
+
+  }
+
   add(array: any, KEY: string): Promise<any> {
 
     return this.storage

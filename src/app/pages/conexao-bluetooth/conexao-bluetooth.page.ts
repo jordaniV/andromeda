@@ -65,6 +65,7 @@ export class ConexaoBluetoothPage {
       this.name = connectedDevice.name;
       this.info = `${this.name} - ${this.address}`; // JUNTO AS DUAS INFORMAÇÕES PARA ENVIAR PELO NAV CONTROLLER
       this.connect(this.address);
+      this.showToast(this.name);
     }
   }
 
@@ -137,7 +138,7 @@ export class ConexaoBluetoothPage {
 
     setTimeout(() => {
       this.loaded.dismiss();
-    }, 10000);
+    }, 15000);
   }
 
 }
