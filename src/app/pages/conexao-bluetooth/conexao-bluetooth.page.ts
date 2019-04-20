@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { Storage } from '@ionic/storage';
@@ -9,7 +10,7 @@ import { Dispositivo } from 'src/app/domains/dispositivo';
   templateUrl: './conexao-bluetooth.page.html',
   styleUrls: ['./conexao-bluetooth.page.scss'],
 })
-export class ConexaoBluetoothPage {
+export class ConexaoBluetoothPage implements OnInit {
 
   listaPareados: Dispositivo[];
   listaExiste = false;
@@ -20,6 +21,7 @@ export class ConexaoBluetoothPage {
   address;
   name: string;
   info;
+  caminho;
 
 
   constructor(public navCtrl: NavController,
@@ -27,8 +29,13 @@ export class ConexaoBluetoothPage {
     private bluetoothSerial: BluetoothSerial,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private storage: Storage) {
+    private storage: Storage,
+    private activatedRoute: ActivatedRoute) {
     this.checkBluetoothEnabled();
+  }
+
+  ngOnInit() {
+    this.caminho = this.activatedRoute.snapshot.paramMap.get('caminho');
   }
 
   selecionadoDispositivo() {
@@ -75,7 +82,7 @@ export class ConexaoBluetoothPage {
     this.bluetoothSerial.connect(address).subscribe(success => {
       this.loaded.dismiss();
       this.showToast('Conexão executada com sucesso!');
-      this.navCtrl.navigateForward(`/automacao/${this.info}`);
+      this.navCtrl.navigateForward(`/${this.caminho}/${this.info}`);
       this.deviceConnected();
     }, error => {
       this.loaded.dismiss();

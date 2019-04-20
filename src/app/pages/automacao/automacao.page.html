@@ -2,7 +2,12 @@
   <ion-toolbar color="cinzaescuro">
     <ion-title>Sensores</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="deviceDisconnected()">
+        <ion-button (click)="openHome()">
+          <ion-icon name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="deviceDisconnected('conexao-bluetooth')">
         <ion-icon name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -27,7 +32,8 @@
     <ion-item-sliding *ngFor="let sensor of sensores" color="cinza">
       <ion-item color="cinza">
         {{ sensor.nome }}
-        <ion-toggle checked="{{ sensor.habilitado }}" (ionChange)="updateHabilitado(sensor)" slot="end" color="success"></ion-toggle>
+        <ion-toggle checked="{{ sensor.habilitado }}" (ionChange)="updateHabilitado(sensor)" slot="end" color="success">
+        </ion-toggle>
       </ion-item>
 
       <ion-item-options side="end">

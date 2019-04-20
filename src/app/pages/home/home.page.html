@@ -3,14 +3,15 @@
     <ion-title>
       Andrômeda
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="connectBluetooth()"> <!-- [routerLink]="['/conexao-bluetooth']" routerDirection="forward" -->
-        <ion-icon slot="icon-only" name="bluetooth"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="cinza" padding>
+
+  <div>
+    <ion-button color="primary" expand="block" fill="outline" shape="round" (click)="openDashboard()">Dashboard</ion-button>
+    <br>
+    <ion-button color="primary" expand="block" fill="outline" shape="round" (click)="openAutomacao()">Sensores</ion-button>
+  </div>
 
 </ion-content>

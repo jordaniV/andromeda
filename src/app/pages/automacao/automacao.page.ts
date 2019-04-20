@@ -34,6 +34,10 @@ export class AutomacaoPage implements OnInit {
     this.loadSensores();
   }
 
+  openHome() {
+    this.deviceDisconnected('home');
+  }
+
   loadSensores() {
 
     this.storageService
@@ -199,7 +203,7 @@ export class AutomacaoPage implements OnInit {
     this.navCtrl.navigateForward('conexao-bluetooth');
   }
 
-  async deviceDisconnected() {
+  async deviceDisconnected(tela: string) {
 
     const info = await this.alertCtrl.create({
       header: 'Aviso',
@@ -217,7 +221,7 @@ export class AutomacaoPage implements OnInit {
             // Unsubscribe from data receiving
             this.bluetoothSerial.disconnect();
             this.showToast('Dispositivo desconectado.');
-            this.navCtrl.navigateRoot('conexao-bluetooth');
+            this.navCtrl.navigateRoot(tela);
           }
         }
       ]

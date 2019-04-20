@@ -16,9 +16,12 @@ export class HomePage {
     // this.checkBluetoothEnabled();
   }
 
-  // abre a tela para conectar dispositivo bluetooth
-  connectBluetooth() {
-    this.navCtrl.navigateForward('conexao-bluetooth');
+  openAutomacao() {
+    this.navCtrl.navigateForward('/conexao-bluetooth/automacao');
+  }
+
+  openDashboard() {
+    this.navCtrl.navigateForward('/conexao-bluetooth/dashboard');
   }
 
 }
