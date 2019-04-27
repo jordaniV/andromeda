@@ -38,14 +38,22 @@ export class AutomacaoPage implements OnInit {
     this.deviceDisconnected('home');
   }
 
+  openSensor(habilitado: boolean, descSensor: string) {
+    if (habilitado) {
+      this.navCtrl.navigateForward(`sensor/${descSensor}`);
+    } else {
+      this.showError('É necessário ativar o sensor.');
+    }
+  }
+
   loadSensores() {
 
     this.storageService
-        .getAllByDevice('sensores', this.info)
-        .then((result: Sensor[]) => {
-          this.sensores = result;
-        })
-        .catch((error) => { this.showError(error); });
+      .getAllByDevice('sensores', this.info)
+      .then((result: Sensor[]) => {
+        this.sensores = result;
+      })
+      .catch((error) => { this.showError(error); });
 
   }
 
@@ -136,6 +144,7 @@ export class AutomacaoPage implements OnInit {
           role: 'atualizar',
           handler: ((data: Sensor) => {
             data.id = sensor.id;
+            data.dispositivoPai = this.info;
             this.storageService
               .update(data, 'sensores')
               .then(() => {
@@ -157,15 +166,15 @@ export class AutomacaoPage implements OnInit {
   updateHabilitado(sensor: Sensor) {
 
     this.storageService
-        .updateHabilitado(sensor, 'sensores')
-        .then(() => {
-          if (sensor.habilitado) {
-            this.showToast('Sensor ativado!');
-          } else {
-            this.showToast('Sensor desativado!');
-          }
-        })
-        .catch((error) => console.error(error));
+      .updateHabilitado(sensor, 'sensores')
+      .then(() => {
+        if (sensor.habilitado) {
+          this.showToast('Sensor ativado!');
+        } else {
+          this.showToast('Sensor desativado!');
+        }
+      })
+      .catch((error) => console.error(error));
 
   }
 

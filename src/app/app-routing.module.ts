@@ -10,6 +10,8 @@ const routes: Routes = [
   { path: 'automacao/:info', loadChildren: './pages/automacao/automacao.module#AutomacaoPageModule' },
   { path: 'dashboard', loadChildren: './pages/dashboard/dashboard/dashboard.module#DashboardPageModule' },
   { path: 'dashboard/:info', loadChildren: './pages/dashboard/dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'sensor', loadChildren: './pages/sensor/sensor/sensor.module#SensorPageModule' },
+  { path: 'sensor/:descSensor', loadChildren: './pages/sensor/sensor/sensor.module#SensorPageModule' },
 ];
 
 @NgModule({

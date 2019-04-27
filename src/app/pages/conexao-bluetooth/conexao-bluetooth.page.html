@@ -23,6 +23,10 @@
         <ion-icon name="refresh"></ion-icon>
       </ion-button>
 
+      <ion-button *ngIf="listaExiste && selecionado" color="cinzaclaro" (click)="deviceDisconnected()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+
       <ion-button *ngIf="listaExiste && selecionado" color="cinzaclaro" (click)="selectDevice()">
         <ion-icon name="checkmark"></ion-icon>
       </ion-button>

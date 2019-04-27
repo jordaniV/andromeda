@@ -46,7 +46,7 @@ export class ConexaoBluetoothPage implements OnInit {
     this.bluetoothSerial.isEnabled().then(success => {
       this.listPairedDevices();
     }, error => {
-      this.showError('Por favor habilite o Buetooth.');
+      this.showError('Por favor habilite o Bluetooth.');
     });
   }
 
@@ -56,7 +56,7 @@ export class ConexaoBluetoothPage implements OnInit {
       this.listaPareados = success;
       this.listaExiste = true;
     }, error => {
-      this.showError('Por favor habilite o Buetooth.');
+      this.showError('Por favor habilite o Bluetooth.');
       this.listaExiste = false;
       this.selecionado = false;
     });
@@ -82,8 +82,8 @@ export class ConexaoBluetoothPage implements OnInit {
     this.bluetoothSerial.connect(address).subscribe(success => {
       this.loaded.dismiss();
       this.showToast('Conexão executada com sucesso!');
-      this.navCtrl.navigateForward(`/${this.caminho}/${this.info}`);
       this.deviceConnected();
+      this.navCtrl.navigateForward(`/${this.caminho}/${this.info}`);
     }, error => {
       this.loaded.dismiss();
       this.showError('Erro de conexão com o dispositivo ou já existe um conectado, tente novamente.');
