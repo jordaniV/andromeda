@@ -16,6 +16,10 @@ export class DashboardPage implements OnInit {
 
   }
 
+  updateDados() {
+
+  }
+
   deviceDisconnected(tela: string) {
 
   }

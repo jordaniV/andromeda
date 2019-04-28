@@ -1,20 +1,30 @@
-.icon-card {
-    position: absolute;
-    font-size: 4em;
-    left: 62%;
-    top: 55%;
+/*.icon-card {
+  /* icone
+  position: absolute;
+  font-size: 3.5em;
+  left: 62%;
+  top: 58%;
 }
 
 h2 {
-    position: absolute;
-    font-size: 30px;
-    left: 65%;
-    margin-top: 5%;
-}
+  /* simbolo 
+  position: absolute;
+  font-size: 30px;
+  left: 65%;
+  margin-top: 10%;
+}*/
 
 h3 {
-    position: relative;
-    font-size: 75px;
-    right: 18%;
-    margin-top: 5%;
+  /* valor temperatura */
+  position: relative;
+  font-size: 65px;
+  font-weight: bold;
+  margin-top: -8%;
+}
+
+h4 {
+  /* nome */
+  position: relative;
+  font-size: 15px;
+  margin-top: 0%;
 }

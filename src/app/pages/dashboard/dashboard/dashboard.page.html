@@ -2,8 +2,8 @@
   <ion-toolbar color="cinzaescuro">
     <ion-title>Dashboard</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openHome()">
-        <ion-icon name="home"></ion-icon>
+      <ion-button (click)="updateDados()">
+        <ion-icon name="refresh" color="success"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
@@ -16,19 +16,17 @@
 
 <ion-content color="cinza">
 
-  <ion-grid>
-    <ion-row align-items-center>
+  <ion-grid fixed>
+    <ion-row >
       <ion-col align-self-center size-sm="6">
-        <ion-card text-center padding color="warning">
-          <ion-icon class="icon-card" name="thermometer"></ion-icon>
-          <h2>ºC</h2>
+        <ion-card text-center padding color="primary">
+          <h4>Temperatura ºC</h4>
           <h3>30</h3>
         </ion-card>
       </ion-col>
       <ion-col align-self-center size-sm="6">
-        <ion-card text-center padding color="warning">
-          <ion-icon class="icon-card" name="water"></ion-icon>
-          <h2>%</h2>
+        <ion-card text-center padding color="primary">
+          <h4>Humidade %</h4>
           <h3>75</h3>
         </ion-card>
       </ion-col>
