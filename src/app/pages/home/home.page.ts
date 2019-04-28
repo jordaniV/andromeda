@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,25 @@ import { NavController, AlertController, ToastController } from '@ionic/angular'
 })
 export class HomePage {
 
+  subscription: any;
+
   constructor(public navCtrl: NavController,
-              private alertCtrl: AlertController,
               private bluetoothSerial: BluetoothSerial,
-              private toastCtrl: ToastController) {
-    // this.checkBluetoothEnabled();
+              private toastCtrl: ToastController,
+              private platform: Platform) {
+
   }
+
+  ionViewDidEnter() {
+
+    this.subscription = this.platform.backButton.subscribe(() => {
+        navigator['app'].exitApp();
+    });
+}
+
+ionViewWillLeave() {
+    this.subscription.unsubscribe();
+}
 
   openAutomacao() {
     this.navCtrl.navigateForward('/conexao-bluetooth/automacao');
