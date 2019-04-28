@@ -16,7 +16,6 @@ export class ConexaoBluetoothPage implements OnInit {
   listaExiste = false;
   selecionado = false;
   pairedDeviceID = 0;
-  dataSend = '';
   loaded;
   address;
   name: string;
@@ -107,17 +106,6 @@ export class ConexaoBluetoothPage implements OnInit {
     // Unsubscribe from data receiving
     this.bluetoothSerial.disconnect();
     this.showToast('Dispositivo desconectado.');
-  }
-
-  sendData() {
-    this.dataSend += '\n';
-    this.showToast(this.dataSend);
-
-    this.bluetoothSerial.write(this.dataSend).then(success => {
-      this.showToast(success);
-    }, error => {
-      this.showError(error);
-    });
   }
 
   async showError(error) {

@@ -93,12 +93,20 @@ export class AutomacaoPage implements OnInit {
             data.dispositivoPai = this.info;
 
             this.storageService
-              .add(data, 'sensores')
-              .then(sensor => {
-                data = <Sensor>{};
-                this.showToast('Sensor adicionado com sucesso!');
-                this.loadSensores();
-                return;
+              .ehDuplicado('sensores', data.nome)
+              .then(duplicado => {
+                if (duplicado) {
+                  this.showError('Não pode existir dois sensores como mesmo nome!');
+                } else {
+                  this.storageService
+                    .add(data, 'sensores')
+                    .then(sensor => {
+                      data = <Sensor>{};
+                      this.showToast('Sensor adicionado com sucesso!');
+                      this.loadSensores();
+                      return;
+                    });
+                }
               });
           })
         }

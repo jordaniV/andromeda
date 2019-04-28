@@ -9,4 +9,28 @@
 
 <ion-content color="cinza" padding>
 
+  <ion-card color="cinzaescuro">
+    <ion-card-header>Informações do Sensor</ion-card-header>
+    <ion-card-content>
+      <h2>Descrição: {{ sensor.nome }}</h2>
+      <h2>Valor On: {{ sensor.high }}</h2>
+      <h2>Valor Off: {{ sensor.low }}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <br>
+
+  <br>
+
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col align-self-center>
+        <ion-button expand="block" size="large" (click)="sendData(sensor.high)">ON</ion-button>
+      </ion-col>
+      <ion-col align-self-center>
+          <ion-button expand="block" size="large" (click)="sendData(sensor.low)">OFF</ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+
 </ion-content>

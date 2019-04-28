@@ -7,8 +7,36 @@ import { Sensor } from 'src/app/domains/sensor';
 })
 export class StorageService {
 
+  /*
+    KEY dos sensores: sensores
+  */
+
+  duplicado = false;
+
   constructor(private storage: Storage) { }
 
+
+  ehDuplicado(KEY: string, desc: string): Promise<boolean> {
+
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return;
+        }
+
+        for (const i of items) {
+          if (i.nome === desc) {
+            this.duplicado = true;
+            break;
+          } else {
+            this.duplicado = false;
+          }
+        }
+
+        return this.duplicado;
+      });
+  }
 
   getAll(KEY: string): Promise<any[]> {
 
@@ -36,6 +64,27 @@ export class StorageService {
         return sensores;
       });
 
+  }
+
+  getByNome(KEY: string, nome: string) {
+
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return null;
+        }
+
+        let sensor: Sensor;
+
+        for (const i of items) {
+          if (i.nome === nome) {
+            sensor = i;
+          } else {}
+        }
+
+        return sensor;
+      });
   }
 
   add(array: any, KEY: string): Promise<any> {
